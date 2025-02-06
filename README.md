@@ -11,6 +11,8 @@ Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a c
 3. [Adding the SDK](#adding-the-sdk)
    - [Using CocoaPods](#using-cocoapods)
    - [Using Swift Package Manager](#using-swift-package-manager)
+4. [Initializing the SDK](#adding-the-sdk)
+5. Initializing the SDK
 
 
 ## Requirements
@@ -47,11 +49,10 @@ If your project uses CocoaPods, you can easily add the Axeptio SDK by following 
 #### Prerequisites
 - Xcode version 15 or later
 - CocoaPods version compatible with XCFrameworks (latest version recommended), if you haven' already, install the latest version of [CocoaPods](https://guides.cocoapods.org/using/getting-started.html)
-
-- Open your 'Podfile' in the root directory of your project
-- Add the following configuration:
-  ```ruby
-  source 'https://github.com/CocoaPods/Specs.git'
+### Steps
+- Open your `Podfile` in the root directory of your project
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '15.0'
 use_frameworks!
 
@@ -59,3 +60,46 @@ target 'MyApp' do
   pod 'AxeptioIOSSDK'
 end
 ```
+- run the following command to install the dependency:
+```bash
+pod install
+```
+
+### Using Swift Package Manager
+To integrate the Axeptio iOS SDK into your Xcode project using Swift Package Manager, follow these steps:
+#### Steps
+- Open your Xcode project.
+- In the **Project Navigator**, select your project
+- Under the **PROJECT** section, navigate to the Package Dependencies tab
+- Click the **+** button to add a new package dependency
+- In the search bar, paste the following package URL: `https://github.com/axeptio/axeptio-ios-sdk`
+- Select the **AxeptioIOSSDK** package from the list of available packages
+- Click Add Package.
+- In the **Choose Package Products screen**, confirm the selection and click **Add Package** to complete the integration
+
+## Initializing the SDK
+To initialize the Axeptio SDK in your iOS project, import the `AxeptioSDK` module into your `AppDelegate` and initialize the SDK with the appropriate configuration. 
+
+### Swift
+```swift
+import UIKit
+import AxeptioSDK
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+           let targetService: AxeptioService = .brands // or .publisherTcf
+        // sample init
+        Axeptio.shared.initialize(targetService: targetService, clientId: "<Your Client ID>", cookiesVersion: "<Your Cookies Version>")
+
+        // or with a token set from an other device (you are in charge to store and pass the token along between devices)
+        Axeptio.shared.initialize(targetService: targetService, clientId: "<Your Client ID>", cookiesVersion: "<Your Cookies Version>", token: "<Token>")
+
+        return true
+    }
+}
+```
+
