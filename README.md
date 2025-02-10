@@ -19,7 +19,7 @@ Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a c
    - [Objective C](#objective-c)
      - [Issues with the Consent Popup (Objective-C)](#issues-with-the-consent-popup-objective-c)
    - [SwiftUI Integration](#swiftui-integration)
-6. [Axeptio SDK and App Tracking Transparency (ATT) Integration](#axeptio-sdk-and-app-traking-transparency-att-integration)
+6. [Axeptio SDK and App Tracking Transparency (ATT) Integration](#axeptio-sdk-and-app-tracking-transparency-att-integration)
    - [Swift Integration](#swift-integration)
    - [Objective C Integration](#objective-c-integration)
    
@@ -380,7 +380,7 @@ class ViewController: UIViewController {
         }
     }
 }
-
+```
 #### Key Points:
 - `ATTrackingManager.requestTrackingAuthorization`: Requests permission for tracking and returns the status.
 - `Axeptio.shared.setupUI()`: Initializes and shows the consent notice once ATT permission is granted.
@@ -443,5 +443,8 @@ For Objective-C, the implementation is quite similar. You’ll request ATT permi
 - **Data Collection Disclosure**: Apple's App Store guidelines require you to disclose what data your app collects and how it uses it. Ensure your app’s privacy policy is up to date, and provide clear information on what data is being collected for tracking purposes.
 
 #### Useful Links
+- [Apple’s App Tracking Transparency Documentation](https://developer.apple.com/documentation/apptrackingtransparency)
+- [Apple's App Store Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
+- [Mobile App SDK](https://www.notion.so/axeptio/Mobile-App-SDK-1812c92d467c80dc86b3f190140c42e1#1822c92d467c80fcaf81f0811869b278)
 
 
