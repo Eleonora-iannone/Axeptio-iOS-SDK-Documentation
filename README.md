@@ -19,7 +19,9 @@ Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a c
    - [Objective C](#objective-c)
      - [Issues with the Consent Popup (Objective-C)](#issues-with-the-consent-popup-objective-c)
    - [SwiftUI Integration](#swiftui-integration)
-
+6. [Axeptio SDK and App Tracking Transparency (ATT) Integration](#axeptio-sdk-and-app-traking-transparency-att-integration)
+   - [Swift Integration](#swift-integration)
+   - [Objective C Integration](#objective-c-integration)
    
 ## Requirements
 The Axeptio iOS SDK is distributed as a pre-compiled binary package, delivered as an `XCFramework`. It supports iOS versions >= 15.
@@ -246,6 +248,7 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 Ensure that you are using the latest version of the Axeptio SDK. Outdated versions might contain bugs that affect the popup behavior.
 
 ### SwiftUI Integration
+
 #### Create a UIViewController subclass to call `setupUI()`
 To integrate the Axeptio SDK into a SwiftUI app, first, create a subclass of `UIViewController` to invoke the SDK's `setupUI()` method. This view controller will later be integrated into SwiftUI using `UIViewControllerRepresentable`.
 ```swift
@@ -311,6 +314,134 @@ struct YourSwiftUIApp: App {
     }
 }
 ```
-By following these steps, the Axeptio SDK will be correctly integrated into a SwiftUI app, and the logic for displaying the consent popup will be handled inside `viewDidAppear()` within the custom `UIViewController
+By following these steps, the Axeptio SDK will be correctly integrated into a SwiftUI app, and the logic for displaying the consent popup will be handled inside `viewDidAppear()` within the custom `UIViewController`
+
+## Axeptio SDK and App Tracking Transparency (ATT) Integration
+
+Starting with iOS 14.5, Apple introduced the App Tracking Transparency (ATT) framework, which requires apps to request user consent before tracking their data across other apps and websites. The Axeptio SDK does **not** automatically handle ATT permission requests, and it is your responsibility to ask for user consent for tracking and manage how the Axeptio Consent Management Platform (CMP) interacts with the ATT permission.
+
+This steps will show you how to:
+
+- Request ATT permission.
+- Display the Axeptio consent notice after the user has accepted the ATT permission.
+- Handle cases where ATT permission is not requested or denied, and show the Axeptio CMP accordingly.
+
+## Overview
+
+The Axeptio SDK does not ask for the user’s tracking permission using the ATT framework. It is your responsibility to request this permission, and the way in which the ATT framework and Axeptio CMP interact depends on your app's logic.
+
+In apps targeting iOS 14.5 and above, you must use the `ATTrackingManager.requestTrackingAuthorization` function to ask for tracking consent. Based on the user’s response, you can choose to show the Axeptio consent notice.
+
+### Expected Flow:
+
+1. **ATT Permission**: Show the ATT permission dialog if the iOS version is 14 or later.
+2. **Axeptio Consent Notice**: Show the Axeptio consent notice if:
+   - iOS version is >= 15.
+   - The user accepts the ATT permission.
+3. **Fallback**: If the ATT permission cannot be displayed (e.g., restricted, iOS < 14, or user denied permission), you can still show the Axeptio CMP.
+
+## Swift Integration
+
+Below is the complete Swift code to handle the ATT permission and initialize the Axeptio CMP.
+
+### Step 1: Request ATT Permission and Show Axeptio CMP
+
+```swift
+import UIKit
+import AppTrackingTransparency
+import AxeptioSDK
+
+class ViewController: UIViewController {
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Task {
+            await handleATTAndInitializeAxeptioCMP()
+        }
+    }
+
+    private func handleATTAndInitializeAxeptioCMP() async {
+        if #available(iOS 14, *) {
+            let status = await ATTrackingManager.requestTrackingAuthorization()
+            let isAuthorized = (status == .authorized)
+            initializeAxeptioCMPUI(granted: isAuthorized)
+        } else {
+            initializeAxeptioCMPUI(granted: true)  // ATT not required for iOS < 14
+        }
+    }
+
+    private func initializeAxeptioCMPUI(granted: Bool) {
+        if granted {
+            // Initialize Axeptio CMP UI if ATT permission is granted
+            Axeptio.shared.setupUI()
+        } else {
+            // Handle case where user denies permission or ATT is restricted
+            Axeptio.shared.setUserDeniedTracking()
+        }
+    }
+}
+
+#### Key Points:
+- `ATTrackingManager.requestTrackingAuthorization`: Requests permission for tracking and returns the status.
+- `Axeptio.shared.setupUI()`: Initializes and shows the consent notice once ATT permission is granted.
+- **Fallback Handling**: If ATT permission is denied or unavailable, the Axeptio CMP can still be initialized depending on your requirements (e.g., on iOS versions before 14).
+
+#### iOS 14 and Above:
+- ATT framework is only available for iOS 14 and later.
+- If the app is running on iOS 14+, it will request the ATT permission.
+- the user grants permission, you can show the Axeptio consent notice using `Axeptio.shared.setupUI()`.
+
+### Objective C Integration
+For Objective-C, the implementation is quite similar. You’ll request ATT permission and initialize the Axeptio CMP based on the user's response.
+### Step 1: Request ATT Permission and Show Axeptio CMP
+
+```objc
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+@import AxeptioSDK;
+
+@implementation ViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (@available(iOS 14, *)) {
+        // Request ATT permission if on iOS >= 14
+        [self requestTrackingAuthorization];
+    } else {
+        // Initialize Axeptio CMP if on iOS < 14 (ATT not required)
+        [Axeptio.shared setupUI];
+    }
+}
+
+- (void)requestTrackingAuthorization {
+    [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+        BOOL isAuthorized = (status == ATTrackingManagerAuthorizationStatusAuthorized);
+        [self initializeAxeptioCMPUI:isAuthorized];
+    }];
+}
+
+- (void)initializeAxeptioCMPUI:(BOOL)granted {
+    if (granted) {
+        // Initialize Axeptio CMP UI if ATT permission is granted
+        [Axeptio.shared setupUI];
+    } else {
+        // Handle case where user denies permission or ATT is restricted
+        [Axeptio.shared setUserDeniedTracking];
+    }
+}
+
+@end
+```
+#### Key Points:
+- `ATTrackingManager.requestTrackingAuthorizationWithCompletionHandler`: This method requests ATT permission and provides a callback with the status of the request.
+- `Axeptio.shared.setupUI()`: This method initializes and shows the consent notice after the user has granted ATT permission.
+- **Fallback Handling**: Similar to the Swift implementation, you can still show the Axeptio CMP even if the ATT permission is not granted or not available.
+
+#### Importante Notes:
+- **ATT Request Flow**: The ATT request must be shown at an appropriate time in your app flow, typically when the user first opens the app or at a point where they can make an informed decision.
+- **IOS 14+**: The ATT framework is only available on iOS 14 and later. For earlier versions of iOS, you can proceed with displaying the Axeptio consent notice without needing ATT permission.
+- **Data Collection Disclosure**: Apple's App Store guidelines require you to disclose what data your app collects and how it uses it. Ensure your app’s privacy policy is up to date, and provide clear information on what data is being collected for tracking purposes.
+
+#### Useful Links
 
 
