@@ -43,7 +43,7 @@ As a developer, you may not be immediately aware of these requirements, which co
 
 By following these instructions, you'll be able to generate a GitHub Access Token smoothly, reducing any onboarding friction and avoiding potential authentication problems down the line.
 
-# 🧐 Requirements
+# 🧐Requirements
 The Axeptio iOS SDK is distributed as a pre-compiled binary package, delivered as an `XCFramework`. It supports iOS versions >= 15.
 
 Before starting, make sure you have:
@@ -63,7 +63,7 @@ Ensure the **following keys** are added to your `Info.plist` file to comply with
     <true/>
 </dict>
 ```
-# 🔧 Clone the Repository
+# 🔧Clone the Repository
 To get started, clone the repository to your local machine:
 
 ```bash
@@ -164,7 +164,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     return YES;
 }
 ```
-# 🔧 Set up the SDK UI
+# 🔧Set up the SDK UI
 > **[!IMPORTANT]** The `setupUI` method should be invoked **only** from your main/entry `UIViewController`, typically once during the application launch. By calling this method, the consent notice and preference views will be displayed **only if necessary** and **once the SDK is fully initialized**.
 
 In order to display the consent and preference views and interact with the user, ensure that the `setupUI` method is called from your main `UIViewController`. The consent popup and preferences management will be shown based on the SDK initialization and the user's consent requirements.
@@ -199,7 +199,7 @@ class ViewController: UIViewController {
 
 @end
 ```
-## 🔧 Issues with the Consent Popup (Objective-C)
+## 🔧Issues with the Consent Popup (Objective-C)
 If the consent popup is not appearing as expected, follow these steps to troubleshoot and resolve the issue:
 
 ### Ensure Correct SDK Initialization in AppDelegate:
@@ -336,7 +336,7 @@ struct YourSwiftUIApp: App {
 ```
 By following these steps, the Axeptio SDK will be correctly integrated into a SwiftUI app, and the logic for displaying the consent popup will be handled inside `viewDidAppear()` within the custom `UIViewController`
 
-# 🚀 Axeptio SDK and App Tracking Transparency (ATT) Integration
+# 🚀Axeptio SDK and App Tracking Transparency (ATT) Integration
 
 Starting with iOS 14.5, Apple introduced the App Tracking Transparency (ATT) framework, which requires apps to request user consent before tracking their data across other apps and websites. The Axeptio SDK does **not** automatically handle ATT permission requests, and it is your responsibility to ask for user consent for tracking and manage how the Axeptio Consent Management Platform (CMP) interacts with the ATT permission.
 
@@ -618,7 +618,7 @@ NSURL *updatedURL = [Axeptio.shared appendAxeptioTokenToURL:@"<Your URL>" token:
 
 The Axeptio SDK provides various events to notify your application when the user interacts with the consent management platform (CMP). By subscribing to these events, you can track consent status changes, consent popup visibility, and updates to Google Consent Mode. This section explains how to subscribe to and handle these events.
 
-# 🚀 Events Overview
+# 🚀Events Overview
 
 ## Available Events
 1. **onPopupClosedEvent**  
@@ -687,7 +687,7 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 
 [Axeptio.shared setEventListener:axeptioEventListener];
 ```
-# 🚀 Event Descriptions
+# 🚀Event Descriptions
 
 ## `onPopupClosedEvent`
 - **Description**: This event is triggered when the consent popup is closed, either by the user granting or denying consent.
@@ -836,7 +836,7 @@ In this example, the host app implements the AxeptioEventDelegate protocol and r
 
 
 
-# 🚀 Google Consent Mode v2 Integration with Axeptio SDK
+# 🚀Google Consent Mode v2 Integration with Axeptio SDK
 
 This steps explains how to integrate Google Consent Mode v2 with the Axeptio SDK for managing user consent within your iOS application. It covers Firebase Analytics integration and provides code examples in both Swift and Objective-C.
 
@@ -935,7 +935,7 @@ Integrating Google Consent Mode v2 with the Axeptio SDK provides a seamless way 
 - [Firebase Analytics SDK Documentation](https://firebase.google.com/docs/analytics)
 - [Axeptio SDK Documentation](https://developer.axeptio.eu/docs/sdk/)
 
-# 🚀 Google AdMob Integration with Axeptio SDK
+# 🚀Google AdMob Integration with Axeptio SDK
 This steps explains how to integrate Google AdMob with the Axeptio SDK in your iOS app to manage user consent and comply with privacy regulations like GDPR and CCPA.
 
 ### Prerequisites
