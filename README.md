@@ -22,6 +22,10 @@ Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a c
 6. [Axeptio SDK and App Tracking Transparency (ATT) Integration](#axeptio-sdk-and-app-tracking-transparency-att-integration)
    - [Swift Integration](#swift-integration)
    - [Objective C Integration](#objective-c-integration)
+7. [Responsibilities Mobile App vs SDK](#responsibilities-mobile-app-vs-sdk)
+8. [Retrieving Stored Consents](#retrieving-stored-consents)
+9. [Show Consent Popup on Demand](#show-consent-popup-on-demand)
+10. [Clearing Consent from `UserDefaults`](#clearing-consent-from-userdefaults)
    
 ## Requirements
 The Axeptio iOS SDK is distributed as a pre-compiled binary package, delivered as an `XCFramework`. It supports iOS versions >= 15.
@@ -447,4 +451,96 @@ For Objective-C, the implementation is quite similar. You’ll request ATT permi
 - [Apple's App Store Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
 - [Mobile App SDK](https://www.notion.so/axeptio/Mobile-App-SDK-1812c92d467c80dc86b3f190140c42e1#1822c92d467c80fcaf81f0811869b278)
 
+### Responsibilities Mobile App vs SDK
+
+The integration of the Axeptio SDK into your mobile application involves clear delineation of responsibilities between the mobile app and the SDK itself. Below are the distinct roles for each in handling user consent and tracking.
+
+#### **Mobile Application Responsibilities:**
+
+1. **Managing App Tracking Transparency (ATT) Flow:**
+   - The mobile app is responsible for initiating and managing the ATT authorization process on iOS 14 and later. This includes presenting the ATT request prompt at an appropriate time in the app's lifecycle.
+
+2. **Controlling the Display Sequence of ATT and CMP:**
+   - The app must determine the appropriate sequence for displaying the ATT prompt and the Axeptio consent management platform (CMP). Specifically, the app should request ATT consent before invoking the Axeptio CMP.
+
+3. **Compliance with App Store Privacy Labels:**
+   - The app must ensure accurate and up-to-date declarations of data collection practices according to Apple’s privacy label requirements, ensuring full transparency to users about data usage.
+
+4. **Event Handling and User Consent Updates:**
+   - The app is responsible for handling SDK events such as user consent actions. Based on these events, the app must adjust its behavior accordingly, ensuring that user consent is respected across sessions.
+
+#### **Axeptio SDK Responsibilities:**
+
+1. **Displaying the Consent Management Interface:**
+   - The Axeptio SDK is responsible for rendering the user interface for the consent management platform (CMP) once triggered. It provides a customizable interface for users to give or revoke consent.
+
+2. **Storing and Managing User Consent Choices:**
+   - The SDK securely stores and manages user consent choices, maintaining a persistent record that can be referenced throughout the app's lifecycle.
+
+3. **Sending Consent Status via APIs:**
+   - The SDK facilitates communication of the user's consent status through APIs, allowing the app to be updated with the user’s preferences.
+
+4. **No Implicit Handling of ATT Permissions:**
+   - The Axeptio SDK does **not** manage the App Tracking Transparency (ATT) permission flow. It is the host app's responsibility to request and handle ATT permissions explicitly before displaying the consent management interface. The SDK functions only once the ATT permission is granted (or bypassed due to platform restrictions).
+
+### Retrieving Stored Consents
+
+To retrieve user consent preferences stored by the Axeptio SDK, you can access the data stored in the `UserDefaults`. The SDK automatically stores consent information in `UserDefaults`, making it accessible for the app to retrieve whenever necessary.
+
+#### **Retrieving Consents in Swift:**
+
+In Swift, you can access the stored consents by using the `UserDefaults` API. This allows you to query specific consent keys, such as the one you previously stored when the user made their choices.
+
+```swift
+let consent = UserDefaults.standard.object(forKey: "Key")
+```
+This will return the consent data associated with the provided key. Ensure that you know the specific key associated with the consent data you're trying to access.
+
+#### **Retrieving Consents in Objective-C:**
+In Objective-C, you can access the stored consents using the `NSUserDefaults` class. The following code demonstrates how to retrieve the consent data stored in `NSUserDefaults`:
+```objc
+id consent = [[NSUserDefaults standardUserDefaults] objectForKey:@"Key"];
+```
+This will return the consent information associated with the specified key.
+
+For a more detailed breakdown of how the Axeptio SDK handles stored consent values, including cookie management and other privacy-related data, please refer to the [Axeptio SDK Documentation](https://support.axeptio.eu/hc/en-gb/articles/8558526367249-Does-Axeptio-deposit-cookies).
+
+### Show Consent Popup on Demand
+
+You can request the consent popup to be displayed programmatically at any point in your app’s lifecycle. This can be useful when you need to show the consent screen after a specific user action or event, rather than automatically when the app starts.
+- This method will display the consent management platform (CMP) UI based on the user's current consent status.
+- Make sure to trigger the consent popup at the appropriate moment to avoid interrupting the user experience.
+- The consent popup can be triggered even after the app has been launched and after the consent has already been obtained, allowing you to ask for consent again if necessary.
+
+#### Swift Implementation:
+To trigger the consent popup on demand in Swift, you can call the `showConsentScreen()` method on the `Axeptio.shared` instance:
+
+```swift
+Axeptio.shared.showConsentScreen()
+```
+#### Objective-C Implementation
+
+Similarly, in Objective-C, the same method can be invoked to show the consent screen on demand:
+```objc
+[Axeptio.shared showConsentScreen];
+```
+
+### Clearing Consent from `UserDefaults`
+
+A method is provided to clear the stored consent information from `UserDefaults`. This allows you to reset the user's consent status and remove any previously stored preferences.
+- This method will remove the stored consent data, which may include preferences or other consent-related information stored in UserDefaults.
+- It's useful for scenarios where the user needs to update their consent choices or when you want to reset consent state for any other reason.
+- Once consent is cleared, the app may re-prompt the user for consent based on the current configuration or flow.
+
+#### Swift Implementation:
+To clear the consent from `UserDefaults` in Swift, simply invoke the `clearConsent()` method on the shared `Axeptio` instance:
+
+```swift
+Axeptio.shared.clearConsent()
+```
+#### Objective-C Implementation:
+Similarly, in Objective-C, you can call the clearConsent method on the shared Axeptio instance to remove the stored consent:
+```objc
+[Axeptio.shared clearConsent];
+```
 
