@@ -1072,4 +1072,4 @@ By integrating Google AdMob with the Axeptio SDK, you enable your iOS app to man
 - [Firebase Analytics SDK Documentation](https://firebase.google.com/docs/analytics)
 - [Axeptio SDK Documentation](https://developer.axeptio.eu/docs/sdk/)
 
-For more detailed information, you can visit the [Axeptio documentation](https://support.axeptio.eu/hc/en-gb/articles/8558526367249-Does-Axeptio-deposit-cookies)
+For more detailed information, you can visit the [Axeptio documentation](https://support.axeptio.eu/hc/en-gb )
