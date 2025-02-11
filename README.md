@@ -930,10 +930,6 @@ By integrating Google Consent Mode and Firebase Analytics, you are ensuring that
 
 Integrating Google Consent Mode v2 with the Axeptio SDK provides a seamless way to manage user consent preferences across both Google and Firebase systems. By properly handling consent updates and syncing with Firebase Analytics, your app will remain compliant with privacy laws while respecting user preferences. Use the provided event listener and consent mapping techniques to ensure that both Google and Firebase follow the same consent flow.
 
-# Useful Links:
-- [Google Consent Mode v2 Documentation](https://www.google.com/about/consent/)
-- [Firebase Analytics SDK Documentation](https://firebase.google.com/docs/analytics)
-- [Axeptio SDK Documentation](https://developer.axeptio.eu/docs/sdk/)
 
 # 🚀Google AdMob Integration with Axeptio SDK
 This steps explains how to integrate Google AdMob with the Axeptio SDK in your iOS app to manage user consent and comply with privacy regulations like GDPR and CCPA.
