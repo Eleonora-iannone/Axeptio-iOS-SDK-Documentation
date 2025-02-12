@@ -360,11 +360,11 @@ In apps targeting iOS 14.5 and above, you must use the `ATTrackingManager.reques
    - The user accepts the ATT permission.
 3. **Fallback**: If the ATT permission cannot be displayed (e.g., restricted, iOS < 14, or user denied permission), you can still show the Axeptio CMP.
 
-# Swift Integration
+## Swift Integration
 
 Below is the complete Swift code to handle the ATT permission and initialize the Axeptio CMP.
 
-## Step 1: Request ATT Permission and Show Axeptio CMP
+#### Request ATT Permission and Show Axeptio CMP
 
 ```swift
 import UIKit
@@ -401,19 +401,19 @@ class ViewController: UIViewController {
     }
 }
 ```
-### Key Points:
+#### Key Points:
 - `ATTrackingManager.requestTrackingAuthorization`: Requests permission for tracking and returns the status.
 - `Axeptio.shared.setupUI()`: Initializes and shows the consent notice once ATT permission is granted.
 - **Fallback Handling**: If ATT permission is denied or unavailable, the Axeptio CMP can still be initialized depending on your requirements (e.g., on iOS versions before 14).
 
-### iOS 14 and Above:
+#### iOS 14 and Above:
 - ATT framework is only available for iOS 14 and later.
 - If the app is running on iOS 14+, it will request the ATT permission.
 - the user grants permission, you can show the Axeptio consent notice using `Axeptio.shared.setupUI()`.
 
 ## Objective C Integration
 For Objective-C, the implementation is quite similar. You’ll request ATT permission and initialize the Axeptio CMP based on the user's response.
-## Step 1: Request ATT Permission and Show Axeptio CMP
+#### Request ATT Permission and Show Axeptio CMP
 
 ```objc
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
@@ -452,26 +452,26 @@ For Objective-C, the implementation is quite similar. You’ll request ATT permi
 
 @end
 ```
-### Key Points:
+#### Key Points:
 - `ATTrackingManager.requestTrackingAuthorizationWithCompletionHandler`: This method requests ATT permission and provides a callback with the status of the request.
 - `Axeptio.shared.setupUI()`: This method initializes and shows the consent notice after the user has granted ATT permission.
 - **Fallback Handling**: Similar to the Swift implementation, you can still show the Axeptio CMP even if the ATT permission is not granted or not available.
 
-### Importante Notes:
+#### Importante Notes:
 - **ATT Request Flow**: The ATT request must be shown at an appropriate time in your app flow, typically when the user first opens the app or at a point where they can make an informed decision.
 - **IOS 14+**: The ATT framework is only available on iOS 14 and later. For earlier versions of iOS, you can proceed with displaying the Axeptio consent notice without needing ATT permission.
 - **Data Collection Disclosure**: Apple's App Store guidelines require you to disclose what data your app collects and how it uses it. Ensure your app’s privacy policy is up to date, and provide clear information on what data is being collected for tracking purposes.
 
-### Useful Links
+#### Useful Links
 - [Apple’s App Tracking Transparency Documentation](https://developer.apple.com/documentation/apptrackingtransparency)
 - [Apple's App Store Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
 - [Mobile App SDK](https://www.notion.so/axeptio/Mobile-App-SDK-1812c92d467c80dc86b3f190140c42e1#1822c92d467c80fcaf81f0811869b278)
 
-## Responsibilities Mobile App vs SDK
+# Responsibilities Mobile App vs SDK
 
 The integration of the Axeptio SDK into your mobile application involves clear delineation of responsibilities between the mobile app and the SDK itself. Below are the distinct roles for each in handling user consent and tracking.
 
-### **Mobile Application Responsibilities:**
+#### **Mobile Application Responsibilities:**
 
 1. **Managing App Tracking Transparency (ATT) Flow:**
    - The mobile app is responsible for initiating and managing the ATT authorization process on iOS 14 and later. This includes presenting the ATT request prompt at an appropriate time in the app's lifecycle.
@@ -485,7 +485,7 @@ The integration of the Axeptio SDK into your mobile application involves clear d
 4. **Event Handling and User Consent Updates:**
    - The app is responsible for handling SDK events such as user consent actions. Based on these events, the app must adjust its behavior accordingly, ensuring that user consent is respected across sessions.
 
-### **Axeptio SDK Responsibilities:**
+#### **Axeptio SDK Responsibilities:**
 
 1. **Displaying the Consent Management Interface:**
    - The Axeptio SDK is responsible for rendering the user interface for the consent management platform (CMP) once triggered. It provides a customizable interface for users to give or revoke consent.
@@ -499,11 +499,11 @@ The integration of the Axeptio SDK into your mobile application involves clear d
 4. **No Implicit Handling of ATT Permissions:**
    - The Axeptio SDK does **not** manage the App Tracking Transparency (ATT) permission flow. It is the host app's responsibility to request and handle ATT permissions explicitly before displaying the consent management interface. The SDK functions only once the ATT permission is granted (or bypassed due to platform restrictions).
 
-## Retrieving Stored Consents
+# Retrieving Stored Consents
 
 To retrieve user consent preferences stored by the Axeptio SDK, you can access the data stored in the `UserDefaults`. The SDK automatically stores consent information in `UserDefaults`, making it accessible for the app to retrieve whenever necessary.
 
-### **Retrieving Consents in Swift:**
+#### **Retrieving Consents in Swift:**
 
 In Swift, you can access the stored consents by using the `UserDefaults` API. This allows you to query specific consent keys, such as the one you previously stored when the user made their choices.
 
@@ -512,7 +512,7 @@ let consent = UserDefaults.standard.object(forKey: "Key")
 ```
 This will return the consent data associated with the provided key. Ensure that you know the specific key associated with the consent data you're trying to access.
 
-### **Retrieving Consents in Objective-C:**
+#### **Retrieving Consents in Objective-C:**
 In Objective-C, you can access the stored consents using the `NSUserDefaults` class. The following code demonstrates how to retrieve the consent data stored in `NSUserDefaults`:
 ```objc
 id consent = [[NSUserDefaults standardUserDefaults] objectForKey:@"Key"];
@@ -521,7 +521,7 @@ This will return the consent information associated with the specified key.
 
 For a more detailed breakdown of how the Axeptio SDK handles stored consent values, including cookie management and other privacy-related data, please refer to the [Axeptio SDK Documentation](https://support.axeptio.eu/hc/en-gb/articles/8558526367249-Does-Axeptio-deposit-cookies).
 
-## Show Consent Popup on Demand
+# Show Consent Popup on Demand
 
 You can request the consent popup to be displayed programmatically at any point in your app’s lifecycle. This can be useful when you need to show the consent screen after a specific user action or event, rather than automatically when the app starts.
 - This method will display the consent management platform (CMP) UI based on the user's current consent status.
