@@ -72,12 +72,12 @@ git clone https://github.com/axeptio/sample-app-ios
 # Adding the SDK
 The package can be added to your project using either **CocoaPods** or **Swift Package Manager**. Both dependency managers for iOS and are supported by the Axeptio SDK.
 
-# Using CocoaPods
+## Using CocoaPods
 If your project uses CocoaPods, you can easily add the Axeptio SDK by following these steps:
-### Prerequisites
+#### Prerequisites
 - Xcode version 15 or later
 - CocoaPods version compatible with XCFrameworks (latest version recommended), if you haven' already, install the latest version of [CocoaPods](https://guides.cocoapods.org/using/getting-started.html)
-### Steps
+#### Steps
 - Open your `Podfile` in the root directory of your project
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -93,9 +93,9 @@ end
 pod install
 ```
 
-# Using Swift Package Manager
+## Using Swift Package Manager
 To integrate the Axeptio iOS SDK into your Xcode project using Swift Package Manager, follow these steps:
-### Steps
+#### Steps
 - Open your Xcode project.
 - In the **Project Navigator**, select your project
 - Under the **PROJECT** section, navigate to the Package Dependencies tab
@@ -108,7 +108,7 @@ To integrate the Axeptio iOS SDK into your Xcode project using Swift Package Man
 # 🔧Initializing the SDK
 To initialize the Axeptio SDK in your iOS project, import the `AxeptioSDK` module into your `AppDelegate` and initialize the SDK with the appropriate configuration. 
 
-### Swift
+## Swift
 ```swift
 import UIKit
 import AxeptioSDK
@@ -139,7 +139,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 }
 ```
-### Objective C
+## Objective C
 ```objc
 #import "AppDelegate.h"
 
@@ -169,7 +169,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 
 In order to display the consent and preference views and interact with the user, ensure that the `setupUI` method is called from your main `UIViewController`. The consent popup and preferences management will be shown based on the SDK initialization and the user's consent requirements.
 
-### Swift
+## Swift
 ```swift
 import UIKit
 
@@ -184,7 +184,7 @@ class ViewController: UIViewController {
 ```
 }
 
-### Object C
+## Object C
 ```objc
 #import "ViewController.h"
 @import AxeptioSDK;
@@ -202,7 +202,7 @@ class ViewController: UIViewController {
 ### 🔧Issues with the Consent Popup (Objective-C)
 If the consent popup is not appearing as expected, follow these steps to troubleshoot and resolve the issue:
 
-#### Ensure Correct SDK Initialization in AppDelegate:
+##### Ensure Correct SDK Initialization in AppDelegate:
 Verify that the SDK is properly initialized in the `AppDelegate.m` file with the correct `clientId` and `cookiesVersion`
 ```objc
 #import "AppDelegate.h"
@@ -267,7 +267,7 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 #### SDK Version
 Ensure that you are using the latest version of the Axeptio SDK. Outdated versions might contain bugs that affect the popup behavior.
 
-### SwiftUI Integration
+## SwiftUI Integration
 
 #### Create a UIViewController subclass to call `setupUI()`
 To integrate the Axeptio SDK into a SwiftUI app, first, create a subclass of `UIViewController` to invoke the SDK's `setupUI()` method. This view controller will later be integrated into SwiftUI using `UIViewControllerRepresentable`.
