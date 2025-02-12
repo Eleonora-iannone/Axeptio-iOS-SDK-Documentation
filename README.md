@@ -72,12 +72,12 @@ git clone https://github.com/axeptio/sample-app-ios
 # Adding the SDK
 The package can be added to your project using either **CocoaPods** or **Swift Package Manager**. Both dependency managers for iOS and are supported by the Axeptio SDK.
 
-## Using CocoaPods
+# Using CocoaPods
 If your project uses CocoaPods, you can easily add the Axeptio SDK by following these steps:
-# Prerequisites
+### Prerequisites
 - Xcode version 15 or later
 - CocoaPods version compatible with XCFrameworks (latest version recommended), if you haven' already, install the latest version of [CocoaPods](https://guides.cocoapods.org/using/getting-started.html)
-## Steps
+### Steps
 - Open your `Podfile` in the root directory of your project
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -93,7 +93,7 @@ end
 pod install
 ```
 
-## Using Swift Package Manager
+# Using Swift Package Manager
 To integrate the Axeptio iOS SDK into your Xcode project using Swift Package Manager, follow these steps:
 ### Steps
 - Open your Xcode project.
@@ -108,7 +108,7 @@ To integrate the Axeptio iOS SDK into your Xcode project using Swift Package Man
 # 🔧Initializing the SDK
 To initialize the Axeptio SDK in your iOS project, import the `AxeptioSDK` module into your `AppDelegate` and initialize the SDK with the appropriate configuration. 
 
-## Swift
+### Swift
 ```swift
 import UIKit
 import AxeptioSDK
@@ -139,7 +139,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 }
 ```
-## Objective C
+### Objective C
 ```objc
 #import "AppDelegate.h"
 
@@ -169,7 +169,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 
 In order to display the consent and preference views and interact with the user, ensure that the `setupUI` method is called from your main `UIViewController`. The consent popup and preferences management will be shown based on the SDK initialization and the user's consent requirements.
 
-## Swift
+### Swift
 ```swift
 import UIKit
 
@@ -184,7 +184,7 @@ class ViewController: UIViewController {
 ```
 }
 
-## Object C
+### Object C
 ```objc
 #import "ViewController.h"
 @import AxeptioSDK;
@@ -199,10 +199,10 @@ class ViewController: UIViewController {
 
 @end
 ```
-## 🔧Issues with the Consent Popup (Objective-C)
+### 🔧Issues with the Consent Popup (Objective-C)
 If the consent popup is not appearing as expected, follow these steps to troubleshoot and resolve the issue:
 
-### Ensure Correct SDK Initialization in AppDelegate:
+#### Ensure Correct SDK Initialization in AppDelegate:
 Verify that the SDK is properly initialized in the `AppDelegate.m` file with the correct `clientId` and `cookiesVersion`
 ```objc
 #import "AppDelegate.h"
@@ -229,7 +229,7 @@ Verify that the SDK is properly initialized in the `AppDelegate.m` file with the
 
 @end
 ```
-### Correctly Calling `setupUI` from Main `UIViewController`:
+#### Correctly Calling `setupUI` from Main `UIViewController`:
 Ensure that the `setupUI` method is called from your main view controller (usually in `viewDidLoad` or a similar lifecycle method) to properly trigger the consent popup display.
 ```objc
 #import "ViewController.h"
@@ -246,16 +246,16 @@ Ensure that the `setupUI` method is called from your main view controller (usual
 @end
 ```
 
-### Check for Potential UI Blockers
+#### Check for Potential UI Blockers
 If the consent popup is not showing, check if other views or modals are blocking it. Temporarily disable any other views that might interfere with the consent view to ensure it is not being hidden.
 
-### Verify Event Logging for Popup Request:
+#### Verify Event Logging for Popup Request:
 Add a logging statement to confirm that the SDK is triggering the popup:
 ```objc
 [Axeptio.shared setupUI];
 NSLog(@"Consent popup triggered successfully");
 ```
-### Ensure Proper Event Listeners are Set Up
+#### Ensure Proper Event Listeners are Set Up
 If you are using event listeners to capture actions like the consent popup being closed, ensure that they are properly implemented and assigned.
 ```objc
 AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init];
@@ -264,12 +264,12 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 }];
 [Axeptio.shared setEventListener:axeptioEventListener];
 ```
-### SDK Version
+#### SDK Version
 Ensure that you are using the latest version of the Axeptio SDK. Outdated versions might contain bugs that affect the popup behavior.
 
-## SwiftUI Integration
+### SwiftUI Integration
 
-### Create a UIViewController subclass to call `setupUI()`
+#### Create a UIViewController subclass to call `setupUI()`
 To integrate the Axeptio SDK into a SwiftUI app, first, create a subclass of `UIViewController` to invoke the SDK's `setupUI()` method. This view controller will later be integrated into SwiftUI using `UIViewControllerRepresentable`.
 ```swift
 import SwiftUI
@@ -287,7 +287,7 @@ class AxeptioViewController: UIViewController {
 }
 ```
 
-### Create a `UIViewControllerRepresentable` struct
+#### Create a `UIViewControllerRepresentable` struct
 Next, create a struct that conforms to the `UIViewControllerRepresentable` protocol to integrate the custom `UIViewController` into the SwiftUI view hierarchy. This struct will allow you to display the `AxeptioViewController` as a SwiftUI view.
 ```swift
 // Struct to integrate AxeptioViewController into SwiftUI
@@ -302,7 +302,7 @@ struct AxeptioView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
 ```
-### Connect with the AppDelegate using `UIApplicationDelegateAdaptor`
+#### Connect with the AppDelegate using `UIApplicationDelegateAdaptor`
 In SwiftUI, to properly set up the application and initialize the SDK, you'll need an entry point that implements the initialization logic in the `AppDelegate`. Use `UIApplicationDelegateAdaptor` to connect your `AppDelegate` to the SwiftUI app structure.
 ```swift
 import SwiftUI
@@ -346,13 +346,13 @@ This steps will show you how to:
 - Display the Axeptio consent notice after the user has accepted the ATT permission.
 - Handle cases where ATT permission is not requested or denied, and show the Axeptio CMP accordingly.
 
-# Overview
+#### Overview
 
 The Axeptio SDK does not ask for the user’s tracking permission using the ATT framework. It is your responsibility to request this permission, and the way in which the ATT framework and Axeptio CMP interact depends on your app's logic.
 
 In apps targeting iOS 14.5 and above, you must use the `ATTrackingManager.requestTrackingAuthorization` function to ask for tracking consent. Based on the user’s response, you can choose to show the Axeptio consent notice.
 
-## Expected Flow:
+#### Expected Flow:
 
 1. **ATT Permission**: Show the ATT permission dialog if the iOS version is 14 or later.
 2. **Axeptio Consent Notice**: Show the Axeptio consent notice if:
