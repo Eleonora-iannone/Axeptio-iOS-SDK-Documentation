@@ -528,46 +528,46 @@ You can request the consent popup to be displayed programmatically at any point 
 - Make sure to trigger the consent popup at the appropriate moment to avoid interrupting the user experience.
 - The consent popup can be triggered even after the app has been launched and after the consent has already been obtained, allowing you to ask for consent again if necessary.
 
-### Swift Implementation:
+#### Swift Implementation:
 To trigger the consent popup on demand in Swift, you can call the `showConsentScreen()` method on the `Axeptio.shared` instance:
 
 ```swift
 Axeptio.shared.showConsentScreen()
 ```
-### Objective-C Implementation
+#### Objective-C Implementation
 
 Similarly, in Objective-C, the same method can be invoked to show the consent screen on demand:
 ```objc
 [Axeptio.shared showConsentScreen];
 ```
 
-## Clearing Consent from `UserDefaults`
+# Clearing Consent from `UserDefaults`
 
 A method is provided to clear the stored consent information from `UserDefaults`. This allows you to reset the user's consent status and remove any previously stored preferences.
 - This method will remove the stored consent data, which may include preferences or other consent-related information stored in UserDefaults.
 - It's useful for scenarios where the user needs to update their consent choices or when you want to reset consent state for any other reason.
 - Once consent is cleared, the app may re-prompt the user for consent based on the current configuration or flow.
 
-### Swift Implementation:
+#### Swift Implementation:
 To clear the consent from `UserDefaults` in Swift, simply invoke the `clearConsent()` method on the shared `Axeptio` instance:
 
 ```swift
 Axeptio.shared.clearConsent()
 ```
-### Objective-C Implementation:
+#### Objective-C Implementation:
 Similarly, in Objective-C, you can call the clearConsent method on the shared Axeptio instance to remove the stored consent:
 ```objc
 [Axeptio.shared clearConsent];
 ```
-## Sharing Consent with Webviews
+# Sharing Consent with Webviews
 
 This functionality is available only for the **Publishers Service**. It allows you to pass the consent token to webviews or external URLs to maintain consistency across platforms. You can append the `axeptioToken` to any URL to share the user’s consent status.
-## Key Points:
+#### Key Points:
 - **Manual Approach:** Developers can append the `axeptioToken` and query item manually to any URL using the standard `URLComponents` method.
 - **Automatic Approach:** Use the `appendAxeptioTokenToURL` function to automatically append the token to any URL.
 - **Publisher's Service:** This feature is available only for the Publishers service in Axeptio.
   
-### Manual Token Addition
+## Manual Token Addition
 You can manually append the `axeptioToken` to any URL using the `axeptioToken` and `keyAxeptioTokenQueryItem` properties.
 
 #### Swift Implementation:
@@ -604,23 +604,23 @@ NSURL *updatedURL = urlComponents.URL;
 ## Automatic Token Addition
 Alternatively, you can use the `appendAxeptioTokenToURL` method to automatically append the token to the URL.
 
-### Swift Implementation:
+#### Swift Implementation:
 ```swift
 // Automatically append the consent token to the URL
 let updatedURL = Axeptio.shared.appendAxeptioTokenToURL("<Your URL>", token: Axeptio.shared.axeptioToken)
 ```
-### Objective-C Implementation:
+#### Objective-C Implementation:
 ```objc
 // Automatically append the consent token to the URL
 NSURL *updatedURL = [Axeptio.shared appendAxeptioTokenToURL:@"<Your URL>" token:[Axeptio.shared axeptioToken]];
 ```
-# SDK Events - Handling User Consent and Tracking
+## SDK Events - Handling User Consent and Tracking
 
 The Axeptio SDK provides various events to notify your application when the user interacts with the consent management platform (CMP). By subscribing to these events, you can track consent status changes, consent popup visibility, and updates to Google Consent Mode. This section explains how to subscribe to and handle these events.
 
 # 🚀Events Overview
 
-## Available Events
+#### Available Events
 1. **onPopupClosedEvent**  
    This event is triggered when the consent popup is closed. You can use this event to perform actions after the consent popup is dismissed, such as storing consent status or updating app behavior based on user preferences.
 
@@ -632,7 +632,7 @@ The Axeptio SDK provides various events to notify your application when the user
 
 ## Using AxeptioEventListener to Subscribe to Events
 
-## Swift Integration
+#### Swift Integration
 
 To handle events in Swift, you need to create an `AxeptioEventListener` instance and set event handlers for the desired events.
 
@@ -662,7 +662,7 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
 Axeptio.shared.setEventListener(axeptioEventListener)
 ```
 
-## Objective-C Integration
+#### Objective-C Integration
 For Objective-C, you can set up the `AxeptioEventListener` and subscribe to the events similarly.
 ```objc
 AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init];
@@ -689,27 +689,27 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 ```
 # 🚀Event Descriptions
 
-## `onPopupClosedEvent`
+#### `onPopupClosedEvent`
 - **Description**: This event is triggered when the consent popup is closed, either by the user granting or denying consent.
 - **Use Case**: You can use this event to perform any actions after the user has seen or interacted with the consent popup, such as storing consent preferences, updating the UI, or triggering other processes based on user consent.
 
-## `onConsentChanged`
+#### `onConsentChanged`
 - **Description**: This event is triggered when a user’s consent changes. This could happen when a user grants or revokes consent, or updates their consent preferences.
 - **Use Case**: You can use this event to track changes in user consent status, update app behavior based on new consent, or trigger specific services according to user preferences.
 
-## `onGoogleConsentModeUpdate`
+#### `onGoogleConsentModeUpdate`
 - **Description**: This event is triggered when the Google Consent Mode is updated. It provides information on how Google’s consent management framework has changed, such as when a user grants or withdraws consent for Google’s tracking technologies.
 - **Use Case**: If your app integrates with Google services (e.g., Google Analytics or AdSense), you can use this event to update your tracking configuration or handle user data processing preferences according to Google’s consent mode.
 
-# Event Handling Best Practices
+## Event Handling Best Practices
 
-## Popup Visibility
+#### Popup Visibility
 Ensure that the consent popup is shown at an appropriate time to avoid interrupting the user experience. Use `onPopupClosedEvent` to determine when the user has seen or interacted with the consent popup, and avoid displaying it again unnecessarily.
 
-## User Consent Flow
+#### User Consent Flow
 Consider how the `onConsentChanged` event integrates into your app’s data processing workflow. Ensure that your app adapts its behavior according to the user’s preferences, such as enabling/disabling tracking or collecting personal data.
 
-## Google Consent Mode
+#### Google Consent Mode
 Use the `onGoogleConsentModeUpdate` event to monitor and respond to changes in Google’s consent status. This ensures that your app aligns with Google’s tracking and data collection policies based on the user’s consent.
 
 By using `AxeptioEventListener` to listen for consent-related events, you can effectively manage user consent in your app, ensure compliance with privacy regulations, and improve the user experience. The SDK triggers these events based on user actions, so you can tailor your app’s functionality to respect the user’s consent preferences.
@@ -718,7 +718,7 @@ By using `AxeptioEventListener` to listen for consent-related events, you can ef
 
 Integrating Axeptio into your iOS app includes managing user consent and cookie configuration events. To facilitate this, the Axeptio SDK triggers events that can be received by the host app. In this section, we'll explore how to receive and manage these events, including options for handling them via callbacks, publishers (using Combine), and delegates.
 
-## Event Types
+#### Event Types
 
 Some of the events Axeptio can send include:
 
@@ -733,11 +733,11 @@ Some of the events Axeptio can send include:
  ```
 These events are sent by the system to notify the host app that the user has interacted with the consent system or that an action related to consent has been completed.
 
-## How to Receive Events
+# How to Receive Events
 
 To listen for events sent by the SDK, you can use one of the following approaches:
 
-### Callback (Closure)
+#### Callback (Closure)
 The simplest way to receive events is by using a closure callback. You can define a property of type closure to handle the event and its associated payload.
 **Implementation Example:**
 ```swift
@@ -787,7 +787,7 @@ Axeptio.shared.onConsentEvent
     }
 ```
 In this case, the host app uses the `sink` method to receive the payload and handle the event.
-### Delegate (Protocol)
+#### Delegate (Protocol)
 Another possible approach is to use a **delegate protocol** to receive events. This method is particularly useful if you want to centralize event management in a delegate object.
 
 **Implementation Example:**
@@ -840,7 +840,7 @@ In this example, the host app implements the AxeptioEventDelegate protocol and r
 
 This steps explains how to integrate Google Consent Mode v2 with the Axeptio SDK for managing user consent within your iOS application. It covers Firebase Analytics integration and provides code examples in both Swift and Objective-C.
 
-## Prerequisites
+#### Prerequisites
 
 Before starting the integration, ensure that:
 
@@ -850,35 +850,35 @@ Before starting the integration, ensure that:
 - You have integrated the [Axeptio SDK](https://www.axeptio.eu/en/).
   - [Axeptio SDK Documentation](https://developer.axeptio.eu/docs/sdk/)
 
-## Overview
+#### Overview
 
 When user consent is collected through your Consent Management Platform (CMP), the Axeptio SDK triggers the necessary events and updates Firebase Analytics' consent states accordingly. This ensures that your app remains compliant with privacy regulations, especially when using services like Google Analytics or AdSense.
 
 The integration allows the app to send consent preferences to both Google and Firebase systems. The Google Consent Mode is updated whenever the user modifies their consent preferences via the CMP, and this information is sent to Firebase for analytics tracking.
 
-## Key Steps to Integrate Google Consent Mode v2 with Axeptio SDK
+#### Key Steps to Integrate Google Consent Mode v2 with Axeptio SDK
 
-### 1. **Register for Google Consent Updates**
+##### 1. **Register for Google Consent Updates**
    
 You need to listen for consent updates that come from the user interaction with the Axeptio SDK. These events will notify your application when a user's consent preferences change, especially regarding Google-related services like Google Analytics, Ad Storage, and others.
 
 - The Axeptio SDK will automatically set the `IABTCF_EnableAdvertiserConsentMode` key in `UserDefaults` to `true` once the user has consented to advertising data collection.
 
-### 2. **Map Consent Types and Status**
+###### 2. **Map Consent Types and Status**
    
 The Google Consent Mode v2 categorizes consent statuses into different types like `analyticsStorage`, `adStorage`, and `adPersonalization`. You must map these consent statuses to the corresponding Firebase Analytics consent models. This ensures that Firebase respects the user’s privacy choices.
 
-### 3. **Update Firebase Analytics Consent Statuses**
+##### 3. **Update Firebase Analytics Consent Statuses**
 
 Once the Google Consent update is received from the Axeptio SDK, you must update the consent statuses in Firebase Analytics. Use the `setConsent()` method provided by Firebase to sync the user’s preferences.
 
-### 4. **Set Up the Event Listener for Google Consent Updates**
+##### 4. **Set Up the Event Listener for Google Consent Updates**
 
 The Axeptio SDK triggers events, allowing you to listen for changes in Google’s consent status. You can then map the updates and forward the consent status to Firebase Analytics.
 
-## Code Examples
+#### Code Examples
 
-### Swift
+##### Swift
 
 ```swift
 // Set up the listener for Google Consent Mode updates
@@ -892,7 +892,7 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
     ])
 }
 ```
-### Objective-C
+##### Objective-C
 ```objc
 // Set up the listener for Google Consent Mode updates
 [axeptioEventListener setOnGoogleConsentModeUpdate:^(GoogleConsentV2 *consents) {
@@ -905,7 +905,7 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
     }];
 }];
 ```
-# Explanation of Consent Types
+#### Explanation of Consent Types
 
 - **Analytics Storage**: Consent for storing analytics data.
 - **Ad Storage**: Consent for storing advertising-related data.
@@ -914,18 +914,18 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
 
 The `GoogleConsentStatus` enum defines whether consent is granted (`.granted`) or denied (`.denied`). This mapping ensures that Firebase Analytics is aware of user preferences for analytics and ads storage.
 
-# Event Handling Best Practices
+#### Event Handling Best Practices
 
-### 1. **Popup Visibility**
+##### 1. **Popup Visibility**
 Ensure that the consent popup is shown at the appropriate time in your app's flow to avoid disrupting the user experience. The `onPopupClosedEvent` will notify you once the user has interacted with the consent popup, whether they grant or deny consent.
 
-### 2. **User Consent Flow**
+##### 2. **User Consent Flow**
 Track changes in user consent preferences with the `onConsentChanged` event. This allows your app to react dynamically to changes and adjust its data collection and processing accordingly.
 
-### 3. **Google Consent Mode Updates**
+##### 3. **Google Consent Mode Updates**
 The `onGoogleConsentModeUpdate` event informs you of changes in Google’s consent status. It is essential to ensure your app stays aligned with Google's tracking and data collection policies by updating Firebase Analytics’ consent preferences when this event occurs.
 
-### 4. **Compliance with Privacy Regulations**
+##### 4. **Compliance with Privacy Regulations**
 By integrating Google Consent Mode and Firebase Analytics, you are ensuring that your app complies with privacy regulations like the GDPR and CCPA. Both systems will respect the user’s preferences, ensuring data is only processed in accordance with the user’s consent.
 
 Integrating Google Consent Mode v2 with the Axeptio SDK provides a seamless way to manage user consent preferences across both Google and Firebase systems. By properly handling consent updates and syncing with Firebase Analytics, your app will remain compliant with privacy laws while respecting user preferences. Use the provided event listener and consent mapping techniques to ensure that both Google and Firebase follow the same consent flow.
@@ -934,14 +934,14 @@ Integrating Google Consent Mode v2 with the Axeptio SDK provides a seamless way 
 # 🚀Google AdMob Integration with Axeptio SDK
 This steps explains how to integrate Google AdMob with the Axeptio SDK in your iOS app to manage user consent and comply with privacy regulations like GDPR and CCPA.
 
-### Prerequisites
+#### Prerequisites
 
 Before you begin, ensure that you have the following:
 1. **Axeptio SDK** integrated into your iOS project (refer to the [Axeptio SDK Documentation](https://developer.axeptio.eu/docs/sdk/)).
 2. **Google AdMob SDK** integrated into your project (refer to the [Google AdMob SDK Documentation](https://developers.google.com/admob/ios/quick-start)).
 3. **Firebase Analytics SDK** integrated into your project (optional but recommended for tracking consent across both platforms).
 
-### Step 1: Add Google AdMob to Your iOS Project
+##### Step 1: Add Google AdMob to Your iOS Project
 
 Follow the instructions from the [Google AdMob SDK Documentation](https://developers.google.com/admob/ios/quick-start) to integrate AdMob into your app.
 
@@ -950,15 +950,15 @@ Follow the instructions from the [Google AdMob SDK Documentation](https://develo
 ```ruby
 pod 'Google-Mobile-Ads-SDK'
 ```
-### Step 2: Integrate Google Consent Mode with Axeptio SDK
+##### Step 2: Integrate Google Consent Mode with Axeptio SDK
 To comply with user consent for ad serving, you must listen for consent updates through the Axeptio SDK and pass the consent status to **AdMob**.
-#### 2.1. Enable Consent Mode for Google Ads
+###### 2.1. Enable Consent Mode for Google Ads
 When the user grants consent through the Axeptio SDK, the `onGoogleConsentModeUpdate` event will be triggered. You need to map the consent information to AdMob's consent system.
 
 Axeptio provides a callback for consent updates which you can use to manage AdMob consent.
-#### 2.2 Listen for Google Consent Mode Updates
+###### 2.2 Listen for Google Consent Mode Updates
 In your app, set up an event listener to capture the consent updates and propagate them to AdMob.
-##### Swift
+###### Swift
 ```swift
 import GoogleMobileAds
 import Axeptio
@@ -980,7 +980,7 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
 
 Axeptio.shared.setEventListener(axeptioEventListener)
 ```
-##### Objective-C
+###### Objective-C
 ```objc
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import <Axeptio/Axeptio.h>
@@ -1002,10 +1002,10 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 
 [Axeptio.shared setEventListener:axeptioEventListener];
 ```
-#### 2.3 Handle User Consent for Personalized Ads
+##### 2.3 Handle User Consent for Personalized Ads
 Google AdMob provides a setting to handle whether personalized ads can be shown. You can use the `onGoogleConsentModeUpdate` event to manage this setting.
 
-##### Swift
+###### Swift
 ```swift
 axeptioEventListener.onGoogleConsentModeUpdate = { consents in
     // Check if personalized ads are allowed
@@ -1014,7 +1014,7 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
 }
 ```
 
-#### Objective-C
+###### Objective-C
 ```objc
 [axeptioEventListener setOnGoogleConsentModeUpdate:^(GoogleConsentV2 *consents) {
     // Check if personalized ads are allowed
@@ -1022,9 +1022,9 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
     [[GADMobileAds sharedInstance].requestConfiguration setTagForUnderAgeOfConsent:adPersonalizationConsent];
 }];
 ```
-#### 2.4. Sync with Firebase Analytics (Optional)
+##### 2.4. Sync with Firebase Analytics (Optional)
 If you're using Firebase Analytics to track user consent and activities, make sure you sync the Google Consent Mode with Firebase Analytics as well.
-##### Swift
+###### Swift
 ```swift
 axeptioEventListener.onGoogleConsentModeUpdate = { consents in
     Analytics.setConsent([
@@ -1035,7 +1035,7 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
     ])
 }
 ```
-##### Objective-C
+###### Objective-C
 ```objc
 [axeptioEventListener setOnGoogleConsentModeUpdate:^(GoogleConsentV2 *consents) {
     [FIRAnalytics setConsent:@{
@@ -1046,13 +1046,13 @@ axeptioEventListener.onGoogleConsentModeUpdate = { consents in
     }];
 }];
 ```
-### Step 3: Handle Consent Changes and Popup Visibility
+#### Step 3: Handle Consent Changes and Popup Visibility
 To ensure a smooth user experience and proper handling of consent status, you need to listen for consent changes and update AdMob settings accordingly.
 
 - **onPopupClosedEvent**: Use this event to check the user's final consent choice.
 - **onConsentChanged**: React to changes in user consent dynamically.
 
-### Event Handling Best Practices
+##### Event Handling Best Practices
 - **1. Popup Visibility**
 Ensure that the consent popup is shown at the appropriate time in your app’s flow to avoid disrupting the user experience. The `onPopupClosedEvent` will notify you once the user has interacted with the consent popup, whether they grant or deny consent.
 
