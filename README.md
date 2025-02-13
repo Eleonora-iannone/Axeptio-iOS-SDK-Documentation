@@ -471,7 +471,7 @@ For Objective-C, the implementation is quite similar. You’ll request ATT permi
 #### Useful Links
 - [Apple’s App Tracking Transparency Documentation](https://developer.apple.com/documentation/apptrackingtransparency)
 - [Apple's App Store Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
-- [Mobile App SDK](https://www.notion.so/axeptio/Mobile-App-SDK-1812c92d467c80dc86b3f190140c42e1#1822c92d467c80fcaf81f0811869b278)
+
 <br><br><br>
 # 8. Responsibilities Mobile App vs SDK
 
@@ -857,7 +857,7 @@ Before starting the integration, ensure that:
   - [Firebase Analytics SDK Documentation](https://firebase.google.com/docs/analytics)
   
 - You have integrated the [Axeptio SDK](https://www.axeptio.eu/en/).
-  - [Axeptio SDK Documentation](https://developer.axeptio.eu/docs/sdk/)
+  - [Axeptio SDK Documentation](https://support.axeptio.eu/hc/en-gb)
 
 #### Overview
 
@@ -1081,7 +1081,7 @@ By integrating Google AdMob with the Axeptio SDK, you enable your iOS app to man
 ### Useful Links:
 - [Google AdMob SDK Documentation](https://developers.google.com/admob/ios/quick-start)
 - [Firebase Analytics SDK Documentation](https://firebase.google.com/docs/analytics)
-- [Axeptio SDK Documentation](https://www.notion.so/axeptio/Mobile-App-SDK-1812c92d467c80dc86b3f190140c42e1#1822c92d467c80fcaf81f0811869b278)
 
-For more detailed information, you can visit the [Axeptio documentation](https://support.axeptio.eu/hc/en-gb ).
+
+For more detailed information, you can visit the [Axeptio documentation](https://support.axeptio.eu/hc/en-gb).
 We hope this guide helps you get started with the Axeptio iOS SDK. Good luck with your integration, and thank you for choosing Axeptio!
