@@ -6,7 +6,7 @@
 Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a comprehensive guide on how to integrate the **Axeptio iOS SDK** into your mobile applications. It showcases two distinct modules: one for **Swift** using Swift Package Manager and one for **Objective-C** using CocoaPods. Below you'll find detailed instructions and code examples to help you integrate and configure the SDK within your iOS app.
 
 # 📑 Table of Contents
-1. [GitHub Access Token Documentation](#github-access-token-documentation)
+1. [GitHub Access Token Documentation](#1-github-access-token-documentation)
 2. [Requirements](#requirements)
 3. [Clone the repository](#clone-the-repository)
 4. [Adding the SDK](#adding-the-sdk)
@@ -36,7 +36,7 @@ Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a c
 16. [Google Consent Mode v2 Integration with Axeptio SDK](#google-consent-mode-v2-integration-with-axeptio-sdk)
 17. [Google AdMob Integration with Axeptio SDK](#google-admob-integration-with-axeptio-sdk)
 ***
-# GitHub Access Token Documentation
+# 1. GitHub Access Token Documentation
 When setting up your project or accessing certain GitHub services, you may be prompted to create a GitHub Access Token. However, it's important to note that generating a GitHub access token requires a valid GitHub account and the enabling of two-factor authentication (2FA).
 
 As a developer, you may not be immediately aware of these requirements, which could lead to confusion or authentication issues. To streamline the process, we recommend reviewing the official [GitHub Access Token Documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) for detailed instructions on how to create a token. This guide will also clarify prerequisites such as the need for a validated GitHub account and the necessity of enabling 2FA.
