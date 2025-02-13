@@ -12,7 +12,7 @@ Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a c
 4. [Adding the SDK](#adding-the-sdk)
    - [Using CocoaPods](#using-cocoapods)
    - [Using Swift Package Manager](#using-swift-package-manager)
-5. [Initializing the SDK](#adding-the-sdk)
+5. [Initializing the SDK](#initializing-the-sdk)
    - [Swift](#swift)
    - [Objective C](#objective-c)
 6. [Set up the SDK UI](#set-up-the-sdk-ui)
