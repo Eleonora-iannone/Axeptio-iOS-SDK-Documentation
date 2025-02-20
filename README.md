@@ -5,40 +5,40 @@
 
 Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a comprehensive guide on how to integrate the **Axeptio iOS SDK** into your mobile applications. It showcases two distinct modules: one for **Swift** using Swift Package Manager and one for **Objective-C** using CocoaPods. Below you'll find detailed instructions and code examples to help you integrate and configure the SDK within your iOS app.
 
-# 📑 Table of Contents
-1. [GitHub Access Token Documentation](#1-github-access-token-documentation)
-2. [Requirements](#2-requirements)
-3. [Clone the repository](#3-clone-the-repository)
-4. [Adding the SDK](#4-adding-the-sdk)
+## 📑 Table of Contents
+1. [GitHub Access Token Documentation](#github-access-token-documentation)
+2. [Requirements](#requirements)
+3. [Clone the repository](#clone-the-repository)
+4. [Adding the SDK](#adding-the-sdk)
    - [Using CocoaPods](#using-cocoapods)
    - [Using Swift Package Manager](#using-swift-package-manager)
-5. [Initializing the SDK](#5-initializing-the-sdk)
+5. [Initializing the SDK](#initializing-the-sdk)
    - [Swift](#swift)
    - [Objective C](#objective-c)
-6. [Set up the SDK UI](#6-set-up-the-sdk-ui)
+6. [Set up the SDK UI](#set-up-the-sdk-ui)
    - [Swift](#swift)
    - [Objective C](#objective-c)
      - [Issues with the Consent Popup (Objective-C)](#issues-with-the-consent-popup-objective-c)
    - [SwiftUI Integration](#swiftui-integration)
-7. [Axeptio SDK and App Tracking Transparency (ATT) Integration](#7-axeptio-sdk-and-app-tracking-transparency-att-integration)
+7. [Axeptio SDK and App Tracking Transparency (ATT) Integration](#axeptio-sdk-and-app-tracking-transparency-att-integration)
    - [Swift Integration](#swift-integration)
    - [Objective C Integration](#objective-c-integration)
-8. [Responsibilities Mobile App vs SDK](#8-responsibilities-mobile-app-vs-sdk)
-9. [Retrieving Stored Consents](#9-retrieving-stored-consents)
-10. [Show Consent Popup on Demand](#10-show-consent-popup-on-demand)
-11. [Clearing Consent from `UserDefaults`](#11-clearing-consent-from-userdefaults)
-12. [Sharing Consent with Webviews](#12-sharing-consent-with-webviews)
+8. [Responsibilities Mobile App vs SDK](#responsibilities-mobile-app-vs-sdk)
+9. [Retrieving Stored Consents](#retrieving-stored-consents)
+10. [Show Consent Popup on Demand](#show-consent-popup-on-demand)
+11. [Clearing Consent from `UserDefaults`](#clearing-consent-from-userdefaults)
+12. [Sharing Consent with Webviews](#sharing-consent-with-webviews)
     - [Manual Token Addition](#manual-token-addition)
     - [Automatic Token Addition](#automatic-token-addition)
-13. [Events Overview](#13-events-overview)
-14. [Event Descriptions](#14-event-descriptions)
-15. [How to Receive Events](#15-how-to-receive-events)
-16. [Google Consent Mode v2 Integration with Axeptio SDK](#16-google-consent-mode-v2-integration-with-axeptio-sdk)
-17. [Google AdMob Integration with Axeptio SDK](#17-google-admob-integration-with-axeptio-sdk)
+13. [Events Overview](#events-overview)
+14. [Event Descriptions](#event-descriptions)
+15. [How to Receive Events](#how-to-receive-events)
+16. [Google Consent Mode v2 Integration with Axeptio SDK](#google-consent-mode-v2-integration-with-axeptio-sdk)
+17. [Google AdMob Integration with Axeptio SDK](#google-admob-integration-with-axeptio-sdk)
 
 <br><br>
 
-# 1. GitHub Access Token Documentation
+## GitHub Access Token Documentation
 When setting up your project or accessing certain GitHub services, you may be prompted to create a GitHub Access Token. However, it's important to note that generating a GitHub access token requires a valid GitHub account and the enabling of two-factor authentication (2FA).
 
 As a developer, you may not be immediately aware of these requirements, which could lead to confusion or authentication issues. To streamline the process, we recommend reviewing the official [GitHub Access Token Documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) for detailed instructions on how to create a token. This guide will also clarify prerequisites such as the need for a validated GitHub account and the necessity of enabling 2FA.
@@ -46,7 +46,7 @@ As a developer, you may not be immediately aware of these requirements, which co
 By following these instructions, you'll be able to generate a GitHub Access Token smoothly, reducing any onboarding friction and avoiding potential authentication problems down the line.
 <br><br><br>
 
-# 2. 🧐Requirements
+## 🧐Requirements
 The Axeptio iOS SDK is distributed as a pre-compiled binary package, delivered as an `XCFramework`. It supports iOS versions >= 15.
 
 Before starting, make sure you have:
@@ -67,22 +67,22 @@ Ensure the **following keys** are added to your `Info.plist` file to comply with
 </dict>
 ```
 <br><br><br>
-# 3. 🔧Clone the Repository
+## 🔧Clone the Repository
 To get started, clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/axeptio/sample-app-ios
 ```
 <br><br><br>
-# 4. Adding the SDK
+## Adding the SDK
 The package can be added to your project using either **CocoaPods** or **Swift Package Manager**. Both dependency managers for iOS and are supported by the Axeptio SDK.
 
-## Using CocoaPods
+### Using CocoaPods
 If your project uses CocoaPods, you can easily add the Axeptio SDK by following these steps:
-#### Prerequisites
+##### Prerequisites
 - Xcode version 15 or later
 - CocoaPods version compatible with XCFrameworks (latest version recommended), if you haven' already, install the latest version of [CocoaPods](https://guides.cocoapods.org/using/getting-started.html)
-#### Steps
+##### Steps
 - Open your `Podfile` in the root directory of your project
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -98,9 +98,9 @@ end
 pod install
 ```
 
-## Using Swift Package Manager
+### Using Swift Package Manager
 To integrate the Axeptio iOS SDK into your Xcode project using Swift Package Manager, follow these steps:
-#### Steps
+##### Steps
 - Open your Xcode project.
 - In the **Project Navigator**, select your project
 - Under the **PROJECT** section, navigate to the Package Dependencies tab
@@ -110,10 +110,10 @@ To integrate the Axeptio iOS SDK into your Xcode project using Swift Package Man
 - Click Add Package.
 - In the **Choose Package Products screen**, confirm the selection and click **Add Package** to complete the integration
 <br><br><br>
-# 5. 🔧Initializing the SDK
+## 🔧Initializing the SDK
 To initialize the Axeptio SDK in your iOS project, import the `AxeptioSDK` module into your `AppDelegate` and initialize the SDK with the appropriate configuration. 
 
-## Swift
+### Swift
 ```swift
 import UIKit
 import AxeptioSDK
@@ -144,7 +144,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 }
 ```
-## Objective C
+### Objective C
 ```objc
 #import "AppDelegate.h"
 
@@ -170,12 +170,12 @@ class ViewController: UIViewController, UITableViewDataSource {
 }
 ```
 <br><br><br>
-# 6. 🔧Set up the SDK UI
+## 🔧Set up the SDK UI
 > **[!IMPORTANT]** The `setupUI` method should be invoked **only** from your main/entry `UIViewController`, typically once during the application launch. By calling this method, the consent notice and preference views will be displayed **only if necessary** and **once the SDK is fully initialized**.
 
 In order to display the consent and preference views and interact with the user, ensure that the `setupUI` method is called from your main `UIViewController`. The consent popup and preferences management will be shown based on the SDK initialization and the user's consent requirements.
 
-## Swift
+### Swift
 ```swift
 import UIKit
 
@@ -190,7 +190,7 @@ class ViewController: UIViewController {
 ```
 }
 
-## Object C
+### Object C
 ```objc
 #import "ViewController.h"
 @import AxeptioSDK;
@@ -205,10 +205,10 @@ class ViewController: UIViewController {
 
 @end
 ```
-### 🔧Issues with the Consent Popup (Objective-C)
+#### 🔧Issues with the Consent Popup (Objective-C)
 If the consent popup is not appearing as expected, follow these steps to troubleshoot and resolve the issue:
 
-##### Ensure Correct SDK Initialization in AppDelegate:
+###### Ensure Correct SDK Initialization in AppDelegate:
 Verify that the SDK is properly initialized in the `AppDelegate.m` file with the correct `clientId` and `cookiesVersion`
 ```objc
 #import "AppDelegate.h"
@@ -235,7 +235,7 @@ Verify that the SDK is properly initialized in the `AppDelegate.m` file with the
 
 @end
 ```
-#### Correctly Calling `setupUI` from Main `UIViewController`:
+##### Correctly Calling `setupUI` from Main `UIViewController`:
 Ensure that the `setupUI` method is called from your main view controller (usually in `viewDidLoad` or a similar lifecycle method) to properly trigger the consent popup display.
 ```objc
 #import "ViewController.h"
@@ -252,16 +252,16 @@ Ensure that the `setupUI` method is called from your main view controller (usual
 @end
 ```
 
-#### Check for Potential UI Blockers
+##### Check for Potential UI Blockers
 If the consent popup is not showing, check if other views or modals are blocking it. Temporarily disable any other views that might interfere with the consent view to ensure it is not being hidden.
 
-#### Verify Event Logging for Popup Request:
+##### Verify Event Logging for Popup Request:
 Add a logging statement to confirm that the SDK is triggering the popup:
 ```objc
 [Axeptio.shared setupUI];
 NSLog(@"Consent popup triggered successfully");
 ```
-#### Ensure Proper Event Listeners are Set Up
+##### Ensure Proper Event Listeners are Set Up
 If you are using event listeners to capture actions like the consent popup being closed, ensure that they are properly implemented and assigned.
 ```objc
 AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init];
@@ -270,12 +270,12 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 }];
 [Axeptio.shared setEventListener:axeptioEventListener];
 ```
-#### SDK Version
+##### SDK Version
 Ensure that you are using the latest version of the Axeptio SDK. Outdated versions might contain bugs that affect the popup behavior.
 
-## SwiftUI Integration
+### SwiftUI Integration
 
-#### Create a UIViewController subclass to call `setupUI()`
+##### Create a UIViewController subclass to call `setupUI()`
 To integrate the Axeptio SDK into a SwiftUI app, first, create a subclass of `UIViewController` to invoke the SDK's `setupUI()` method. This view controller will later be integrated into SwiftUI using `UIViewControllerRepresentable`.
 ```swift
 import SwiftUI
@@ -293,7 +293,7 @@ class AxeptioViewController: UIViewController {
 }
 ```
 
-#### Create a `UIViewControllerRepresentable` struct
+##### Create a `UIViewControllerRepresentable` struct
 Next, create a struct that conforms to the `UIViewControllerRepresentable` protocol to integrate the custom `UIViewController` into the SwiftUI view hierarchy. This struct will allow you to display the `AxeptioViewController` as a SwiftUI view.
 ```swift
 // Struct to integrate AxeptioViewController into SwiftUI
@@ -308,7 +308,7 @@ struct AxeptioView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
 ```
-#### Connect with the AppDelegate using `UIApplicationDelegateAdaptor`
+##### Connect with the AppDelegate using `UIApplicationDelegateAdaptor`
 In SwiftUI, to properly set up the application and initialize the SDK, you'll need an entry point that implements the initialization logic in the `AppDelegate`. Use `UIApplicationDelegateAdaptor` to connect your `AppDelegate` to the SwiftUI app structure.
 ```swift
 import SwiftUI
@@ -342,7 +342,7 @@ struct YourSwiftUIApp: App {
 ```
 By following these steps, the Axeptio SDK will be correctly integrated into a SwiftUI app, and the logic for displaying the consent popup will be handled inside `viewDidAppear()` within the custom `UIViewController`
 <br><br><br>
-# 7. 🚀Axeptio SDK and App Tracking Transparency (ATT) Integration
+## 🚀Axeptio SDK and App Tracking Transparency (ATT) Integration
 
 Starting with iOS 14.5, Apple introduced the App Tracking Transparency (ATT) framework, which requires apps to request user consent before tracking their data across other apps and websites. The Axeptio SDK does **not** automatically handle ATT permission requests, and it is your responsibility to ask for user consent for tracking and manage how the Axeptio Consent Management Platform (CMP) interacts with the ATT permission.
 
@@ -473,7 +473,7 @@ For Objective-C, the implementation is quite similar. You’ll request ATT permi
 - [Apple's App Store Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
 
 <br><br><br>
-# 8. Responsibilities Mobile App vs SDK
+## Responsibilities Mobile App vs SDK
 
 The integration of the Axeptio SDK into your mobile application involves clear delineation of responsibilities between the mobile app and the SDK itself. Below are the distinct roles for each in handling user consent and tracking.
 
@@ -505,7 +505,7 @@ The integration of the Axeptio SDK into your mobile application involves clear d
 4. **No Implicit Handling of ATT Permissions:**
    - The Axeptio SDK does **not** manage the App Tracking Transparency (ATT) permission flow. It is the host app's responsibility to request and handle ATT permissions explicitly before displaying the consent management interface. The SDK functions only once the ATT permission is granted (or bypassed due to platform restrictions).
 <br><br><br>
-# 9. Retrieving Stored Consents
+## Retrieving Stored Consents
 
 To retrieve user consent preferences stored by the Axeptio SDK, you can access the data stored in the `UserDefaults`. The SDK automatically stores consent information in `UserDefaults`, making it accessible for the app to retrieve whenever necessary.
 
@@ -527,7 +527,7 @@ This will return the consent information associated with the specified key.
 
 For a more detailed breakdown of how the Axeptio SDK handles stored consent values, including cookie management and other privacy-related data, please refer to the [Axeptio SDK Documentation](https://support.axeptio.eu/hc/en-gb/articles/8558526367249-Does-Axeptio-deposit-cookies).
 <br><br><br>
-# 10. Show Consent Popup on Demand
+## Show Consent Popup on Demand
 
 You can request the consent popup to be displayed programmatically at any point in your app’s lifecycle. This can be useful when you need to show the consent screen after a specific user action or event, rather than automatically when the app starts.
 - This method will display the consent management platform (CMP) UI based on the user's current consent status.
@@ -547,7 +547,7 @@ Similarly, in Objective-C, the same method can be invoked to show the consent sc
 [Axeptio.shared showConsentScreen];
 ```
 <br><br><br>
-# 11. Clearing Consent from `UserDefaults`
+## Clearing Consent from `UserDefaults`
 
 A method is provided to clear the stored consent information from `UserDefaults`. This allows you to reset the user's consent status and remove any previously stored preferences.
 - This method will remove the stored consent data, which may include preferences or other consent-related information stored in UserDefaults.
@@ -566,15 +566,15 @@ Similarly, in Objective-C, you can call the clearConsent method on the shared Ax
 [Axeptio.shared clearConsent];
 ```
 <br><br><br>
-# 12. Sharing Consent with Webviews
+## Sharing Consent with Webviews
 
 This functionality is available only for the **Publishers Service**. It allows you to pass the consent token to webviews or external URLs to maintain consistency across platforms. You can append the `axeptioToken` to any URL to share the user’s consent status.
-#### Key Points:
+##### Key Points:
 - **Manual Approach:** Developers can append the `axeptioToken` and query item manually to any URL using the standard `URLComponents` method.
 - **Automatic Approach:** Use the `appendAxeptioTokenToURL` function to automatically append the token to any URL.
 - **Publisher's Service:** This feature is available only for the Publishers service in Axeptio.
   
-## Manual Token Addition
+### Manual Token Addition
 You can manually append the `axeptioToken` to any URL using the `axeptioToken` and `keyAxeptioTokenQueryItem` properties.
 
 #### Swift Implementation:
@@ -608,7 +608,7 @@ urlComponents.queryItems = @[
 // Construct the updated URL with the appended token
 NSURL *updatedURL = urlComponents.URL;
 ```
-## Automatic Token Addition
+### Automatic Token Addition
 Alternatively, you can use the `appendAxeptioTokenToURL` method to automatically append the token to the URL.
 
 #### Swift Implementation:
@@ -621,11 +621,11 @@ let updatedURL = Axeptio.shared.appendAxeptioTokenToURL("<Your URL>", token: Axe
 // Automatically append the consent token to the URL
 NSURL *updatedURL = [Axeptio.shared appendAxeptioTokenToURL:@"<Your URL>" token:[Axeptio.shared axeptioToken]];
 ```
-## SDK Events - Handling User Consent and Tracking
+### SDK Events - Handling User Consent and Tracking
 
 The Axeptio SDK provides various events to notify your application when the user interacts with the consent management platform (CMP). By subscribing to these events, you can track consent status changes, consent popup visibility, and updates to Google Consent Mode. This section explains how to subscribe to and handle these events.
 <br><br><br>
-# 13. 🚀Events Overview
+## 🚀Events Overview
 
 #### Available Events
 1. **onPopupClosedEvent**  
@@ -637,7 +637,7 @@ The Axeptio SDK provides various events to notify your application when the user
 3. **onGoogleConsentModeUpdate**  
    This event is triggered when the Google Consent V2 status is updated. It allows you to react to changes in Google’s consent mode, which can affect tracking behaviors and user data processing preferences.
 
-## Using AxeptioEventListener to Subscribe to Events
+### Using AxeptioEventListener to Subscribe to Events
 
 #### Swift Integration
 
@@ -695,7 +695,7 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 [Axeptio.shared setEventListener:axeptioEventListener];
 ```
 <br><br><br>
-# 14. 🚀Event Descriptions
+## 🚀Event Descriptions
 
 #### `onPopupClosedEvent`
 - **Description**: This event is triggered when the consent popup is closed, either by the user granting or denying consent.
@@ -709,7 +709,7 @@ AxeptioEventListener *axeptioEventListener = [[AxeptioEventListener alloc] init]
 - **Description**: This event is triggered when the Google Consent Mode is updated. It provides information on how Google’s consent management framework has changed, such as when a user grants or withdraws consent for Google’s tracking technologies.
 - **Use Case**: If your app integrates with Google services (e.g., Google Analytics or AdSense), you can use this event to update your tracking configuration or handle user data processing preferences according to Google’s consent mode.
 
-## Event Handling Best Practices
+### Event Handling Best Practices
 
 #### Popup Visibility
 Ensure that the consent popup is shown at an appropriate time to avoid interrupting the user experience. Use `onPopupClosedEvent` to determine when the user has seen or interacted with the consent popup, and avoid displaying it again unnecessarily.
@@ -722,7 +722,7 @@ Use the `onGoogleConsentModeUpdate` event to monitor and respond to changes in G
 
 By using `AxeptioEventListener` to listen for consent-related events, you can effectively manage user consent in your app, ensure compliance with privacy regulations, and improve the user experience. The SDK triggers these events based on user actions, so you can tailor your app’s functionality to respect the user’s consent preferences.
 
-## Event Handling with the Axeptio SDK
+### Event Handling with the Axeptio SDK
 
 Integrating Axeptio into your iOS app includes managing user consent and cookie configuration events. To facilitate this, the Axeptio SDK triggers events that can be received by the host app. In this section, we'll explore how to receive and manage these events, including options for handling them via callbacks, publishers (using Combine), and delegates.
 
@@ -742,7 +742,7 @@ Some of the events Axeptio can send include:
 These events are sent by the system to notify the host app that the user has interacted with the consent system or that an action related to consent has been completed.
 <br><br><br>
 
-# 15. How to Receive Events
+## How to Receive Events
 
 To listen for events sent by the SDK, you can use one of the following approaches:
 
@@ -845,7 +845,7 @@ In this example, the host app implements the AxeptioEventDelegate protocol and r
 
 
 <br><br><br>
-# 16. 🚀Google Consent Mode v2 Integration with Axeptio SDK
+## 🚀Google Consent Mode v2 Integration with Axeptio SDK
 
 This steps explains how to integrate Google Consent Mode v2 with the Axeptio SDK for managing user consent within your iOS application. It covers Firebase Analytics integration and provides code examples in both Swift and Objective-C.
 
@@ -940,7 +940,7 @@ By integrating Google Consent Mode and Firebase Analytics, you are ensuring that
 Integrating Google Consent Mode v2 with the Axeptio SDK provides a seamless way to manage user consent preferences across both Google and Firebase systems. By properly handling consent updates and syncing with Firebase Analytics, your app will remain compliant with privacy laws while respecting user preferences. Use the provided event listener and consent mapping techniques to ensure that both Google and Firebase follow the same consent flow.
 <br><br><br>
 
-# 17. 🚀Google AdMob Integration with Axeptio SDK
+## 🚀Google AdMob Integration with Axeptio SDK
 This steps explains how to integrate Google AdMob with the Axeptio SDK in your iOS app to manage user consent and comply with privacy regulations like GDPR and CCPA.
 
 #### Prerequisites
@@ -1078,7 +1078,7 @@ By integrating Google AdMob with the Axeptio SDK, you enable your iOS app to man
 
 <br><br><br>
 
-### Useful Links:
+#### Useful Links:
 - [Google AdMob SDK Documentation](https://developers.google.com/admob/ios/quick-start)
 - [Firebase Analytics SDK Documentation](https://firebase.google.com/docs/analytics)
 
