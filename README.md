@@ -14,15 +14,15 @@ Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a c
    - [Using Swift Package Manager](#using-swift-package-manager)
 5. [Initializing the SDK](#initializing-the-sdk)
    - [Swift](#swift)
-   - [Objective C](#objective-c)
+   - [Objective-C](#objective-c)
 6. [Set up the SDK UI](#set-up-the-sdk-ui)
    - [Swift](#swift)
-   - [Objective C](#objective-c)
+   - [Objective-C](#objective-c)
      - [Issues with the Consent Popup (Objective-C)](#issues-with-the-consent-popup-objective-c)
    - [SwiftUI Integration](#swiftui-integration)
 7. [Axeptio SDK and App Tracking Transparency (ATT) Integration](#axeptio-sdk-and-app-tracking-transparency-att-integration)
    - [Swift Integration](#swift-integration)
-   - [Objective C Integration](#objective-c-integration)
+   - [Objective-C Integration](#objective-c-integration)
 8. [Responsibilities Mobile App vs SDK](#responsibilities-mobile-app-vs-sdk)
 9. [Retrieving Stored Consents](#retrieving-stored-consents)
 10. [Show Consent Popup on Demand](#show-consent-popup-on-demand)
@@ -144,7 +144,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 }
 ```
-### Objective C
+### Objective-C
 ```objc
 #import "AppDelegate.h"
 
@@ -190,7 +190,7 @@ class ViewController: UIViewController {
 ```
 }
 
-### Object C
+### Objective-C
 ```objc
 #import "ViewController.h"
 @import AxeptioSDK;
@@ -417,7 +417,7 @@ class ViewController: UIViewController {
 - If the app is running on iOS 14+, it will request the ATT permission.
 - the user grants permission, you can show the Axeptio consent notice using `Axeptio.shared.setupUI()`.
 
-## Objective C Integration
+## Objective-C Integration
 For Objective-C, the implementation is quite similar. You’ll request ATT permission and initialize the Axeptio CMP based on the user's response.
 #### Request ATT Permission and Show Axeptio CMP
 
