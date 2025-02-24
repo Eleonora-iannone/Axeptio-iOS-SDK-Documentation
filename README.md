@@ -3,6 +3,12 @@
   Axeptio iOS SDK Documentation
 </h1>
 
+![License](https://img.shields.io/badge/license-Apache%202.0-blue) ![iOS version >= 15](https://img.shields.io/badge/iOS%20version-%3E%3D%2015-green) ![Platform](https://img.shields.io/badge/platform-iOS-blue) ![Build Status](https://img.shields.io/github/workflow/status/axeptio/sample-app-ios/CI)
+ ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
+
+
+
+
 Welcome to the **Axeptio iOS SDK Samples project!** This repository provides a comprehensive guide on how to integrate the **Axeptio iOS SDK** into your mobile applications. It showcases two distinct modules: one for **Swift** using Swift Package Manager and one for **Objective-C** using CocoaPods. Below you'll find detailed instructions and code examples to help you integrate and configure the SDK within your iOS app.
 
 ## 📑 Table of Contents
