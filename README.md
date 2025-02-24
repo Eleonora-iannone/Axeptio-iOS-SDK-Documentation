@@ -3,8 +3,7 @@
   Axeptio iOS SDK Documentation
 </h1>
 
-![License](https://img.shields.io/badge/license-Apache%202.0-blue) ![iOS version >= 15](https://img.shields.io/badge/iOS%20version-%3E%3D%2015-green) ![Platform](https://img.shields.io/badge/platform-iOS-blue) ![Build Status](https://img.shields.io/github/workflow/status/axeptio/sample-app-ios/CI)
- ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
+![License](https://img.shields.io/badge/license-Apache%202.0-blue) ![iOS version >= 15](https://img.shields.io/badge/iOS%20version-%3E%3D%2015-green) ![Platform](https://img.shields.io/badge/platform-iOS-blue) ![GitHub Stars](https://img.shields.io/github/stars/axeptio/sample-app-ios?style=social) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
 
 
